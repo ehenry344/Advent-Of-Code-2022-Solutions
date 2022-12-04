@@ -45,6 +45,5 @@ std::vector<int> maxElfEntries(std::vector<int> elfData, short int n) {
             elfData.erase(maxIter); 
         }
     }
-
     return maxElements; 
 } 
