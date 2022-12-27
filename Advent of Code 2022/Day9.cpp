@@ -1,7 +1,9 @@
 #include "common.h"
 
-// This solution has a cringe off by one error that will eventually be resolved I got tired of trying to determine what was wrong with it 
-// was close enough, just wanted to move on 
+// - Evan (12 / 26 / 2022) 
+// This solution has an off by done error (Pathology is likely faulty handling of diagonal cases) 
+// My brain fought against this code and it won today, will come back another day 
+
 
 struct position_2D { 
     int x; 
@@ -25,7 +27,7 @@ struct position_2D {
                 return position_2D(this->x, this->y - magnitude); 
             case 'L': 
                 return position_2D(this->x - magnitude, this->y); 
-            case 'R': // alows for return in all cases 
+            case 'R':
                 return position_2D(this->x + magnitude, this->y); 
         }
         return position_2D(0, 0); 
@@ -68,10 +70,7 @@ struct position_2D {
     }
 }; 
 
-struct position_map { // manages exisitng found positions. 
-    position_2D maxima; 
-    position_2D minima; 
-
+struct position_map { // manages tail positions 
     std::unordered_set<position_2D, position_2D, position_2D> pos_set; 
 
     void insert(const position_2D & v) { 
@@ -91,7 +90,6 @@ int main() {
     return 0; 
 }
 
-// hash function for positions 
 
 std::size_t num_unique_pos(std::string path, int length) {         
     std::vector<position_2D> knot_grp; 
