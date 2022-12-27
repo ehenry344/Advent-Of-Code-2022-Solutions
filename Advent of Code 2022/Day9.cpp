@@ -1,5 +1,8 @@
 #include "common.h"
 
+// This solution has a cringe off by one error that will eventually be resolved I got tired of trying to determine what was wrong with it 
+// was close enough, just wanted to move on 
+
 struct position_2D { 
     int x; 
     int y; 
@@ -83,22 +86,19 @@ struct position_map { // manages exisitng found positions.
 std::size_t num_unique_pos(std::string path, int length); 
 
 int main() { 
+    std::cout << num_unique_pos("./InputFolder/Day9Input.txt", 2) << std::endl;
     std::cout << num_unique_pos("./InputFolder/Day9Input.txt", 10); 
     return 0; 
 }
 
 // hash function for positions 
 
-std::size_t num_unique_pos(std::string path, int length) {     
+std::size_t num_unique_pos(std::string path, int length) {         
     std::vector<position_2D> knot_grp; 
     knot_grp.resize(length, position_2D(0, 0)); 
 
     position_map solve_data; 
     solve_data.insert(position_2D(0, 0)); 
-
-    // debugging util 
-
-    visualizer knot_vis; 
 
     { 
         std::ifstream stream(path); 
@@ -113,7 +113,7 @@ std::size_t num_unique_pos(std::string path, int length) {
                 while (abs(knot_grp[i].x - knot_grp[i - 1].x) >= 2 || abs(knot_grp[i].y - knot_grp[i - 1].y) >= 2) { 
                     knot_grp[i].x += knot_grp[i].get_dx(knot_grp[i - 1]);
                     knot_grp[i].y += knot_grp[i].get_dy(knot_grp[i - 1]); 
-                    
+
                     solve_data.insert(knot_grp[length - 1]);
                 }
             }
